@@ -11,7 +11,7 @@ struct ContentView: View {
     static let colors: [Color] = [.pink, .indigo, .cyan, .red]
     @State var points: ColorSpots = ContentView.colors.map { .random(withColor: $0) }
 
-    static let animationDuration: Double = 20
+    static let animationDuration: Double = 5
     @State var bias: Float = 0.05
     @State var power: Float = 2.5
     @State var noise: Float = 2
