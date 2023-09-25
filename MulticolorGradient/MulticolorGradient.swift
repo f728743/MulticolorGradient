@@ -18,19 +18,19 @@ struct MulticolorGradient: View, Animatable {
         set { points = .init(newValue) }
     }
 
-    var uiforms: Uniforms {
+    var uniforms: Uniforms {
         .init(params: .init(spots: points, bias: bias, power: power, noise: noise))
     }
 
     var body: some View {
         Rectangle()
-            .colorEffect(ShaderLibrary.gradient(.boundingRect, uiforms.shaderaArgument))
+            .colorEffect(ShaderLibrary.gradient(.boundingRect, .uniforms(uniforms)))
     }
 }
 
-extension Uniforms {
-    var shaderaArgument: Shader.Argument {
-        var copy = self
+extension Shader.Argument {
+    static func uniforms(_ param: Uniforms) -> Shader.Argument {
+        var copy = param
         return .data(Data(bytes: &copy, count: MemoryLayout<Uniforms>.stride))
     }
 }
