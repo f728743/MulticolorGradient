@@ -17,7 +17,7 @@ extension ColorSpot: Animatable {
 
     public var animatableData: ColorSpot.AnimatableData {
         get {
-            .init(position.animatableData, color.resolve(in: .init()).animatableData )
+            .init(position.animatableData, color.resolve(in: .init()).animatableData)
         }
         set {
             position = .init(newValue.first)

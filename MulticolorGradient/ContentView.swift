@@ -41,9 +41,9 @@ private extension ContentView {
     var controls: some View {
         VStack {
             Spacer()
-            labeldSlider("bias", value: $bias, in: 0.001...0.5)
-            labeldSlider("power", value: $power, in: 1...10)
-            labeldSlider("noise", value: $noise, in: 0...400)
+            labeldSlider("bias", value: $bias, in: 0.001 ... 0.5)
+            labeldSlider("power", value: $power, in: 1 ... 10)
+            labeldSlider("noise", value: $noise, in: 0 ... 400)
         }
     }
 
@@ -74,7 +74,7 @@ private extension ContentView {
 private extension ColorSpot {
     static func random(withColor color: Color) -> ColorSpot {
         .init(
-            position: .init(x: CGFloat.random(in: 0..<1), y: CGFloat.random(in: 0..<1)),
+            position: .init(x: CGFloat.random(in: 0 ..< 1), y: CGFloat.random(in: 0 ..< 1)),
             color: color
         )
     }

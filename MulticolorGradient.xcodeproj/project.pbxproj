@@ -12,7 +12,6 @@
 		AD8F851E2AB044A900858462 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8F851D2AB044A900858462 /* Assets.xcassets */; };
 		AD8F85212AB044A900858462 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8F85202AB044A900858462 /* Preview Assets.xcassets */; };
 		AD8F852D2AB0456500858462 /* MulticolorGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8F85272AB0456500858462 /* MulticolorGradient.swift */; };
-		AD8F852E2AB0456500858462 /* MulticolorGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8F85282AB0456500858462 /* MulticolorGradientView.swift */; };
 		AD8F852F2AB0456500858462 /* GradientParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8F852A2AB0456500858462 /* GradientParams.swift */; };
 		AD8F85302AB0456500858462 /* ColorStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8F852B2AB0456500858462 /* ColorStop.swift */; };
 		AD8F85312AB0456500858462 /* Uniforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8F852C2AB0456500858462 /* Uniforms.swift */; };
@@ -26,7 +25,6 @@
 		AD8F851D2AB044A900858462 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD8F85202AB044A900858462 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AD8F85272AB0456500858462 /* MulticolorGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticolorGradient.swift; sourceTree = "<group>"; };
-		AD8F85282AB0456500858462 /* MulticolorGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticolorGradientView.swift; sourceTree = "<group>"; };
 		AD8F852A2AB0456500858462 /* GradientParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientParams.swift; sourceTree = "<group>"; };
 		AD8F852B2AB0456500858462 /* ColorStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorStop.swift; sourceTree = "<group>"; };
 		AD8F852C2AB0456500858462 /* Uniforms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uniforms.swift; sourceTree = "<group>"; };
@@ -67,7 +65,6 @@
 				AD8F85322AB045AB00858462 /* Shaders */,
 				AD8F851B2AB044A800858462 /* ContentView.swift */,
 				AD8F85272AB0456500858462 /* MulticolorGradient.swift */,
-				AD8F85282AB0456500858462 /* MulticolorGradientView.swift */,
 				AD8F85192AB044A800858462 /* MulticolorGradientApp.swift */,
 				AD8F851D2AB044A900858462 /* Assets.xcassets */,
 				AD8F851F2AB044A900858462 /* Preview Content */,
@@ -111,6 +108,7 @@
 				AD8F85122AB044A800858462 /* Sources */,
 				AD8F85132AB044A800858462 /* Frameworks */,
 				AD8F85142AB044A800858462 /* Resources */,
+				AD7A4A352AB76F0D007FB3EB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -166,6 +164,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AD7A4A352AB76F0D007FB3EB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run SwiftLint\nSTART_DATE=$(date +\"%s\")\n\nPATH=${PATH}:/opt/homebrew/bin:/opt/local/bin:/usr/local/bin\n\nSWIFT_LINT=`which swiftlint`\n\n# Run SwiftLint for given filename\nrun_swiftlint() {\n    local filename=\"${1}\"\n    if [[ \"${filename##*.}\" == \"swift\" ]]; then\n        ${SWIFT_LINT} --fix \"${filename}\"\n        ${SWIFT_LINT} lint \"${filename}\"\n    fi\n}\n\nif [ -x \"$(command -v ${SWIFT_LINT})\" ]\nthen\n    echo \"SwiftLint version: $(${SWIFT_LINT} version)\"\n    # Run for both staged and unstaged files\n    git diff --name-only | while read filename; do run_swiftlint \"${filename}\"; done\n    git diff --name-only | while read filename; do run_swiftlint \"${filename}\"; done\nelse\n    echo \"${SWIFT_LINT} is not installed.\"\n    exit 0\nfi\n\nEND_DATE=$(date +\"%s\")\n\nDIFF=$(($END_DATE - $START_DATE))\necho \"SwiftLint took $(($DIFF / 60)) minutes and $(($DIFF % 60)) seconds to complete.\"\n\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AD8F85122AB044A800858462 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -174,7 +192,6 @@
 				AD8F851C2AB044A800858462 /* ContentView.swift in Sources */,
 				AD8F85312AB0456500858462 /* Uniforms.swift in Sources */,
 				AD8F851A2AB044A800858462 /* MulticolorGradientApp.swift in Sources */,
-				AD8F852E2AB0456500858462 /* MulticolorGradientView.swift in Sources */,
 				AD8F852D2AB0456500858462 /* MulticolorGradient.swift in Sources */,
 				AD8F852F2AB0456500858462 /* GradientParams.swift in Sources */,
 				AD8F85342AB045AB00858462 /* MulticolorGradientShader.metal in Sources */,
